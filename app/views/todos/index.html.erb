@@ -14,7 +14,7 @@
       Add a new todo
     </h2>
 
-    <form action="/insert_task" method="post">
+    <form action="/insert_todo" method="post">
       <div>
         <label for="description_box">
           Describe the task
@@ -57,15 +57,15 @@
   <div class="next_up">
       <h2>Next Up</h2>
       <ul>
-    <% @list_of_tasks.where(:in_progress=>false,:done=>false).each do |a_task| %>
+    <% @list_of_todos.where(:in_progress=>false,:done=>false).each do |a_task| %>
      
       <li>
         <div><%= a_task.description %></div>
           <small>
             Added <%= time_ago_in_words(a_task.created_at) %> ago 
-            <a href="/delete_task/<%=a_task.id%>">Delete</a>
+            <a href="/delete_todo/<%=a_task.id%>">Delete</a>
             </small>
-            <form action="/modify_task/<%=a_task.id%>" method="post">
+            <form action="/modify_todo/<%=a_task.id%>" method="post">
               <input type="hidden" name="query_description" value="<%=a_task.description%>">
               <input type="hidden" name="query_user_id" value="<%=a_task.user_id%>">
               <input type="hidden" name="query_in_progress" value="true">
@@ -79,14 +79,14 @@
     <div class="in_progress">
       <h2>In Progress</h2>
       <ul>
-            <% @list_of_tasks.where(:in_progress =>true).each do |a_task| %>
+            <% @list_of_todos.where(:in_progress =>true).each do |a_task| %>
         <li>
            <div><%= a_task.description %></div>
           <small>
           Started <%= time_ago_in_words(a_task.updated_at)%> ago 
-          <a href="/delete_task/<%=a_task.id%>">Delete</a>
+          <a href="/delete_todo/<%=a_task.id%>">Delete</a>
           </small>
-            <form action="/modify_task/<%=a_task.id%>" method="post">
+            <form action="/modify_todo/<%=a_task.id%>" method="post">
               <input type="hidden" name="query_description" value="<%=a_task.description%>">
               <input type="hidden" name="query_user_id" value="<%=a_task.user_id%>">
               <input type="hidden" name="query_in_progress" value="false">
@@ -101,12 +101,12 @@
     <div class="done">
       <h2>Done</h2>
       <ul>
-      <% @list_of_tasks.where(:done => true).each do |a_task| %>
+      <% @list_of_todos.where(:done => true).each do |a_task| %>
           <li>
           <%= a_task.description %>
           <small>
           Completed at <%= a_task.updated_at.strftime("%l:%M%P on %d-%b-%Y") %>
-          <a href="/delete_task/<%=a_task.id%>">Delete</a>
+          <a href="/delete_todo/<%=a_task.id%>">Delete</a>
           </small>
       
           </li>
